@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pizza's!{% endblock %}
+
+{% block body %}
+    <table>
+        <tr>
+            <th>id</th>
+            <th>voornaam</th>
+            <th>achternaam</th>
+            <th>prijs</th>
+            <th>categorie</th>
+        </tr>
+        {% for pizza in pizzas %}
+            <tr>
+                <td>{{ pizza.id }}</td>
+                <td>{{ pizza.firstname }}</td>
+                <td>{{ pizza.lastname }}</td>
+                <td>{{ pizza.salary }}</td>
+                <td>{{ pizza.categorie.name }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

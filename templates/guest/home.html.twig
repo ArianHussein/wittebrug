@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}A&K Pizza's - Home{% endblock %}
+
+{% block body %}
+    <div class="container-fluid full-screen">
+        <!-- Navigatiebalk -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="/Img/logo.png" alt="A&K Pizza's" width="80">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ path('categorie') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">Contact</a>
+                        </li>
+                        {% if app.user %}
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ path('app_logout') }}">Uitloggen</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ path('app_register') }}">Registreren</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ path('app_login') }}">Inloggen</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Sectie -->
+        <header class="hero-section d-flex flex-column justify-content-center align-items-center text-center text-white">
+            <h1 class="display-4 fw-bold">De smaak van Italië, bij jou thuis!</h1>
+            <p class="lead">Gemaakt door Khaled & Arian</p>
+        </header>
+
+        <!-- Dynamische Categorieën -->
+        <section id="categorieen" class="text-center">
+            <div class="container">
+                <h2 class="text-danger fw-bold mb-3">Onze Pizza Categorieën</h2>
+                <div class="row g-4">
+                    {% for categorie in categories %}
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="card category-card">
+                                <a href="{{ path('categorie_show', { id: categorie.id }) }}" class="text-decoration-none">
+                                    <img src="{{ asset(categorie.img) }}" class="card-img-top" alt="{{ categorie.name }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ categorie.name }}</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+
+    {% block stylesheets %}
+        <style>
+            /* Achtergrondkleur fix: Geen blauw, enkel zwart en rood */
+            html, body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                background-color: #000; /* Zwart */
+                color: white;
+                overflow: hidden; /* Geen scrollbalk */
+            }
+
+            .full-screen {
+                min-height: 100vh; /* Hele viewport vult zonder scroll */
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* Hero sectie styling */
+            .hero-section {
+                background: #000; /* Zwart zonder afbeelding */
+                flex-grow: 1;
+                width: 100%;
+            }
+
+            .hero-section h1, .hero-section p {
+                color: white; /* Witte tekst */
+                text-shadow: 2px 2px 5px rgba(255, 0, 0, 0.7); /* Roodachtige schaduw */
+            }
+
+            /* Categorieën styling */
+            .category-card {
+                background-color: #000;
+                border: 2px solid #d9534f; /* Rood */
+                color: white;
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .category-card img {
+                height: 200px;
+                object-fit: cover;
+            }
+
+            .category-card:hover {
+                transform: scale(1.05);
+                border-color: white;
+            }
+
+            .card-title {
+                font-size: 1.5rem;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: #d9534f; /* Rood */
+            }
+        </style>
+    {% endblock %}
+{% endblock %}

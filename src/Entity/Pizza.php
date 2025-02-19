@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\EmployeeRepository;
+use App\Repository\PizzaRepository; // Bijgewerkt van EmployeeRepository
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: EmployeeRepository::class)]
-class Employee
+#[ORM\Entity(repositoryClass: PizzaRepository::class)]
+class Pizza
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,9 +22,9 @@ class Employee
     #[ORM\Column(nullable: true)]
     private ?int $salary = null;
 
-    #[ORM\ManyToOne(inversedBy: 'employees')]
+    #[ORM\ManyToOne(inversedBy: 'pizzas')] // Bijgewerkt van employees
     #[ORM\JoinColumn(nullable: false)]
-    private ?Department $department = null;
+    private ?Categorie $categorie = null; // Bijgewerkt van Department
 
     public function getId(): ?int
     {
@@ -67,14 +67,14 @@ class Employee
         return $this;
     }
 
-    public function getDepartment(): ?Department
+    public function getCategorie(): ?Categorie
     {
-        return $this->department;
+        return $this->categorie;
     }
 
-    public function setDepartment(?Department $department): static
+    public function setCategorie(?Categorie $categorie): static
     {
-        $this->department = $department;
+        $this->categorie = $categorie;
 
         return $this;
     }

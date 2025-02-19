@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pizza's!{% endblock %}
+
+{% block body %}
+    <table>
+        <tr>
+            <th>id</th>
+            <th>voornaam</th>
+            <th>achternaam</th>
+            <th>prijs</th>
+        </tr>
+        {% for p in categorie.pizzas %}
+            <tr>
+                <td>{{ p.id }}</td>
+                <td>{{ p.firstName }}</td>
+                <td>{{ p.lastName }}</td>
+                <td>{{ p.salary }}</td>
+                <td><a href="{{ path('app_categorie_show') }}">terug</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
