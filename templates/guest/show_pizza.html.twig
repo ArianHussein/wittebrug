@@ -1,23 +1,103 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Pizza's!{% endblock %}
+{% block title %}Pizza's - Overzicht{% endblock %}
 
 {% block body %}
-    <table>
-        <tr>
-            <th>id</th>
-            <th>voornaam</th>
-            <th>achternaam</th>
-            <th>prijs</th>
-        </tr>
-        {% for p in categorie.pizzas %}
-            <tr>
-                <td>{{ p.id }}</td>
-                <td>{{ p.firstName }}</td>
-                <td>{{ p.lastName }}</td>
-                <td>{{ p.salary }}</td>
-                <td><a href="{{ path('app_categorie_show') }}">terug</a></td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="container-fluid full-screen">
+        <!-- Navigatiebalk -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="/Img/logo.png" alt="Pizza's" width="80">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ path('app_categorie_show') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">Inloggen</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Sectie -->
+        <header class="hero-section d-flex flex-column justify-content-center align-items-center text-center text-white">
+            <h1 class="display-4 fw-bold">Pizza Overzicht</h1>
+            <p class="lead">Bekijk hier een overzicht van onze heerlijke vlees-pizza's!</p>
+        </header>
+
+        <!-- Pizza Kaarten -->
+        <section id="vlees-pizzas" class="py-4">
+            <div class="container">
+                <h2 class="text-danger fw-bold mb-4">Vlees-pizza's</h2>
+                <div class="row g-4">
+                    {% for pizza in vleespizzas %}
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="card bg-dark text-white">
+                                <img src="{{ asset(pizza.img) }}" class="card-img-top" alt="{{ pizza.name }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ pizza.name }}</h5>
+                                    <p class="card-text">{{ pizza.description }}</p>
+                                    <p class="text-danger fw-bold">€{{ pizza.price }}</p>
+                                    <a href="#" class="btn btn-danger">Bestel nu</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="text-center">
+                            <p class="text-white">Geen vlees-pizza's beschikbaar.</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Styling -->
+    <style>
+        .full-screen {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-section {
+            background: #000;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .hero-section h1, .hero-section p {
+            color: white;
+            text-shadow: 2px 2px 5px rgba(255, 0, 0, 0.7);
+        }
+
+        .card {
+            background-color: #212529;
+            border: 1px solid #d9534f;
+        }
+
+        .card-title {
+            color: #d9534f;
+        }
+
+        .btn-danger {
+            background-color: #d9534f;
+            border-color: #d9534f;
+        }
+
+        .btn-danger:hover {
+            background-color: #b52d2a;
+            border-color: #b52d2a;
+        }
+    </style>
 {% endblock %}

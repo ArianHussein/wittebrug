@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\PizzaRepository;
+use App\Repository\VleespizzaRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PizzaRepository::class)]
-class Pizza
+#[ORM\Entity(repositoryClass: VleespizzaRepository::class)]
+class Vleespizza
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -14,17 +14,16 @@ class Pizza
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null; // Naam van de pizza
+    private ?string $name = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $description = null; // Optionele beschrijving van de pizza
+    private ?string $description = null;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private ?float $price = null; // Prijs van de pizza
+    private ?float $price = null;
 
-    #[ORM\ManyToOne(targetEntity: Categorie::class, inversedBy: 'pizzas')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Categorie $categorie = null; // Koppeling met de categorie
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $img = null;
 
     public function getId(): ?int
     {
@@ -67,14 +66,14 @@ class Pizza
         return $this;
     }
 
-    public function getCategorie(): ?Categorie
+    public function getImg(): ?string
     {
-        return $this->categorie;
+        return $this->img;
     }
 
-    public function setCategorie(?Categorie $categorie): static
+    public function setImg(?string $img): static
     {
-        $this->categorie = $categorie;
+        $this->img = $img;
 
         return $this;
     }

@@ -18,13 +18,13 @@ class Categorie
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255, nullable: true)] // Voeg img toe
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $img = null;
 
     /**
      * @var Collection<int, Pizza>
      */
-    #[ORM\OneToMany(targetEntity: Pizza::class, mappedBy: 'categorie')]
+    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Pizza::class, cascade: ['persist', 'remove'])]
     private Collection $pizzas;
 
     public function __construct()
